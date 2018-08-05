@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:CircleProgressView="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AttendanceFragment">
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/attendanceCard"
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            card_view:cardBackgroundColor="@color/colorTransparentPrimaryLight"
+            card_view:cardElevation="1dp"
+            card_view:cardCornerRadius="2dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/attendanceTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/overall_attendance"
+                    android:textSize="26sp"
+                    android:paddingTop="8dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_gravity="center"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/colorSecondary"/>
+
+                <LinearLayout
+                    android:id="@+id/overallLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="2"
+                    android:orientation="horizontal"
+                    android:layout_below="@+id/attendanceTitle">
+
+                    <at.grabner.circleprogress.CircleProgressView
+                        android:id="@+id/circleProgressView"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:padding="16dp"
+                        CircleProgressView:cpv_autoTextSize="true"
+                        CircleProgressView:cpv_barColor="@color/colorSecondary"
+                        CircleProgressView:cpv_barWidth="35dp"
+                        CircleProgressView:cpv_fillColor="@color/colorPrimaryDark"
+                        CircleProgressView:cpv_innerContourSize="0dp"
+                        CircleProgressView:cpv_maxValue="100"
+                        CircleProgressView:cpv_outerContourSize="0dp"
+                        CircleProgressView:cpv_rimColor="@color/colorPrimary"
+                        CircleProgressView:cpv_rimWidth="45dp"
+                        CircleProgressView:cpv_seekMode="true"
+                        CircleProgressView:cpv_showUnit="true"
+                        CircleProgressView:cpv_spinColor="@color/colorPrimaryLight"
+                        CircleProgressView:cpv_textColor="@color/colorSecondary"
+                        CircleProgressView:cpv_textMode="Value"
+                        CircleProgressView:cpv_textScale="1"
+                        CircleProgressView:cpv_unit="%"
+                        CircleProgressView:cpv_unitColor="@color/colorSecondary"
+                        CircleProgressView:cpv_unitPosition="right_bottom"
+                        app:cpv_value="20" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:padding="8dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/user_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="24sp"
+                            android:textColor="@color/colorTransparentWhite"
+                            android:text="Niyas N S"/>
+
+                        <TextView
+                            android:id="@+id/user_semester"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="22sp"
+                            android:textColor="@color/colorTransparentWhite"
+                            android:text="Semester III"/>
+
+                        <TextView
+                            android:id="@+id/user_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="22sp"
+                            android:textColor="@color/colorTransparentWhite"
+                            android:text="14CS246"/>
+
+                        <TextView
+                            android:id="@+id/user_total_classes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="20sp"
+                            android:textColor="@color/colorTransparentWhite"
+                            android:text="Total classes"/>
+
+                        <TextView
+                            android:id="@+id/user_attended_classes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="18sp"
+                            android:textColor="@color/colorTransparentWhite"
+                            android:text="Attended classes"/>
+
+                        <TextView
+                            android:id="@+id/user_most_attended_class"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="18sp"
+                            android:textColor="@color/colorTransparentWhite"
+                            android:text="Most attended class"/>
+
+                        <TextView
+                            android:id="@+id/user_most_missed_class"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="18sp"
+                            android:textColor="@color/colorTransparentWhite"
+                            android:text="Most missed class"/>
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <GridView
+            android:id="@+id/attendanceList"
+            android:layout_below="@+id/attendanceCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </GridView>
+
+</RelativeLayout>
