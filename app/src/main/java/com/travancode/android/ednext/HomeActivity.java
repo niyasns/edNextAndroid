@@ -1,6 +1,8 @@
 package com.travancode.android.ednext;
 
 import android.app.Fragment;
+import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.special.ResideMenu.ResideMenu;
 import com.special.ResideMenu.ResideMenuItem;
 
@@ -20,10 +23,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     ResideMenu resideMenu;
 
     ResideMenuItem itemHome;
-    ResideMenuItem itemProfile;
-    ResideMenuItem itemCredits;
+    ResideMenuItem itemDocs;
     ResideMenuItem itemLogout;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,18 +54,15 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         resideMenu.setSwipeDirectionDisable(ResideMenu.DIRECTION_RIGHT);
 
         itemHome = new ResideMenuItem(this, R.drawable.ic_home, "Home");
-        itemProfile = new ResideMenuItem(this, R.drawable.ic_profile, "Profile");
-        itemCredits = new ResideMenuItem(this, R.drawable.ic_credits, "Credits");
+        itemDocs = new ResideMenuItem(this, R.drawable.ic_docs, "Docs");
         itemLogout = new ResideMenuItem(this, R.drawable.ic_logout, "Logout");
 
         itemHome.setOnClickListener(this);
-        itemProfile.setOnClickListener(this);
-        itemCredits.setOnClickListener(this);
+        itemDocs.setOnClickListener(this);
         itemLogout.setOnClickListener(this);
 
         resideMenu.addMenuItem(itemHome, ResideMenu.DIRECTION_LEFT);
-        resideMenu.addMenuItem(itemProfile, ResideMenu.DIRECTION_LEFT);
-        resideMenu.addMenuItem(itemCredits, ResideMenu.DIRECTION_LEFT);
+        resideMenu.addMenuItem(itemDocs, ResideMenu.DIRECTION_LEFT);
         resideMenu.addMenuItem(itemLogout, ResideMenu.DIRECTION_LEFT);
 
         findViewById(R.id.menu_button).setOnClickListener(new View.OnClickListener() {
@@ -85,12 +83,15 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         if (v == itemHome) {
             changeFragment(new AttendanceFragment());
-        } else if (v == itemProfile) {
+        } else if (v == itemDocs) {
 
-        } else if (v == itemCredits) {
-
+            changeFragment(new DocsFragment());
         } else if (v == itemLogout) {
 
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(HomeActivity.this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         }
 
         resideMenu.closeMenu();
@@ -102,8 +103,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         android.app.FragmentManager fragmentManager = getFragmentManager();
         android.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.setTransitionStyle(android.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        fragmentTransaction.add(R.id.frame_window, targetFragment);
+        fragmentTransaction.setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        fragmentTransaction.replace(R.id.frame_window, targetFragment);
         fragmentTransaction.commit();
     }
 

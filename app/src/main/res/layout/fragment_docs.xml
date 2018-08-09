@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="5dp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:layout_margin="5dp"
+                card_view:cardBackgroundColor="@color/colorTransparentPrimaryLight"
+                card_view:cardElevation="1dp"
+                card_view:cardCornerRadius="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/regulation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:textSize="20sp"
+                        android:padding="16dp"
+                        android:textStyle="bold"
+                        android:text="Regulations B.Tech 2018 Scheme"
+                        android:textColor="@color/colorTransparentWhite"/>
+
+                    <Button
+                        android:id="@+id/regulationDownload"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:text="Download"
+                        android:background="@drawable/rounded_button"
+                        android:textColor="@color/colorSecondary"
+                        android:textSize="20sp"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:layout_margin="5dp"
+                card_view:cardBackgroundColor="@color/colorTransparentPrimaryLight"
+                card_view:cardElevation="1dp"
+                card_view:cardCornerRadius="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/syllabus"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:textSize="20sp"
+                        android:padding="16dp"
+                        android:textStyle="bold"
+                        android:text="Syllabus B.Tech 2018 Scheme S1S2"
+                        android:textColor="@color/colorTransparentWhite"/>
+
+                    <Button
+                        android:id="@+id/syllabusDownload"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:text="Download"
+                        android:background="@drawable/rounded_button"
+                        android:textColor="@color/colorSecondary"
+                        android:textSize="20sp"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:layout_margin="5dp"
+                card_view:cardBackgroundColor="@color/colorTransparentPrimaryLight"
+                card_view:cardElevation="1dp"
+                card_view:cardCornerRadius="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/activity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:textSize="20sp"
+                        android:padding="16dp"
+                        android:textStyle="bold"
+                        android:text="Activity points B.Tech 2018 Scheme"
+                        android:textColor="@color/colorTransparentWhite"/>
+
+                    <Button
+                        android:id="@+id/activityDownload"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:text="Download"
+                        android:background="@drawable/rounded_button"
+                        android:textColor="@color/colorSecondary"
+                        android:textSize="20sp"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
+
+

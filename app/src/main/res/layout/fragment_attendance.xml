@@ -58,16 +58,15 @@
                         CircleProgressView:cpv_outerContourSize="0dp"
                         CircleProgressView:cpv_rimColor="@color/colorPrimary"
                         CircleProgressView:cpv_rimWidth="45dp"
-                        CircleProgressView:cpv_seekMode="true"
-                        CircleProgressView:cpv_showUnit="true"
+                        CircleProgressView:cpv_showUnit="false"
                         CircleProgressView:cpv_spinColor="@color/colorPrimaryLight"
                         CircleProgressView:cpv_textColor="@color/colorSecondary"
                         CircleProgressView:cpv_textMode="Value"
                         CircleProgressView:cpv_textScale="1"
-                        CircleProgressView:cpv_unit="%"
+                        CircleProgressView:cpv_unit="percent"
                         CircleProgressView:cpv_unitColor="@color/colorSecondary"
-                        CircleProgressView:cpv_unitPosition="right_bottom"
-                        app:cpv_value="20" />
+                        CircleProgressView:cpv_unitPosition="bottom"
+                        app:cpv_value="0" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -81,57 +80,41 @@
                             android:id="@+id/user_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="24sp"
-                            android:textColor="@color/colorTransparentWhite"
-                            android:text="Niyas N S"/>
-
-                        <TextView
-                            android:id="@+id/user_semester"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
                             android:textSize="22sp"
                             android:textColor="@color/colorTransparentWhite"
-                            android:text="Semester III"/>
+                            android:text=""/>
+
+                        <TextView
+                            android:id="@+id/user_branch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="20sp"
+                            android:textColor="@color/colorTransparentWhite"
+                            android:text=""/>
 
                         <TextView
                             android:id="@+id/user_number"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="22sp"
+                            android:textSize="18sp"
                             android:textColor="@color/colorTransparentWhite"
-                            android:text="14CS246"/>
+                            android:text=""/>
 
                         <TextView
                             android:id="@+id/user_total_classes"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="20sp"
+                            android:textSize="16sp"
                             android:textColor="@color/colorTransparentWhite"
-                            android:text="Total classes"/>
+                            android:text=""/>
 
                         <TextView
                             android:id="@+id/user_attended_classes"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
                             android:textColor="@color/colorTransparentWhite"
-                            android:text="Attended classes"/>
-
-                        <TextView
-                            android:id="@+id/user_most_attended_class"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="18sp"
-                            android:textColor="@color/colorTransparentWhite"
-                            android:text="Most attended class"/>
-
-                        <TextView
-                            android:id="@+id/user_most_missed_class"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="18sp"
-                            android:textColor="@color/colorTransparentWhite"
-                            android:text="Most missed class"/>
+                            android:text=""/>
 
 
                     </LinearLayout>
@@ -142,12 +125,15 @@
 
         </android.support.v7.widget.CardView>
 
-        <GridView
-            android:id="@+id/attendanceList"
+        <android.support.v7.widget.RecyclerView
             android:layout_below="@+id/attendanceCard"
+            android:layout_marginTop="4dp"
+            android:id="@+id/recyclerAttendanceList"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical">
 
-        </GridView>
+
+        </android.support.v7.widget.RecyclerView>
 
 </RelativeLayout>

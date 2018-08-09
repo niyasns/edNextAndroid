@@ -14,8 +14,7 @@ import android.widget.TextView;
 
 public class SliderAdapter extends PagerAdapter {
 
-
-    private final Context context;
+    private Context context;
     private LayoutInflater layoutInflater;
 
     public SliderAdapter(Context context)
@@ -25,20 +24,20 @@ public class SliderAdapter extends PagerAdapter {
 
     public int[] slide_images = {
             R.drawable.kerala_logo_red,
-            R.drawable.kerala_logo_red,
-            R.drawable.kerala_logo_red
+            R.drawable.uckdsc,
+            R.drawable.alpha
     };
 
     public String[] slide_headings = {
             "KERALA UNIVERSITY\nCOLLEGE OF ENGINEERING",
-            "WIFI ENABLED CAMPUS",
-            "SMART CAMPUS"
+            "UCK Developer Student Club",
+            "I am an alpha"
     };
 
     public String[] slide_descs = {
             "University of Kerala\nKariavattam Campus",
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+            "Developed and maintained by UCK DSC",
+            "This is an alpha version. Please check for updates.",
     };
 
     @Override
