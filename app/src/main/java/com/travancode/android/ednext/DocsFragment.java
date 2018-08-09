@@ -1,16 +1,23 @@
 package com.travancode.android.ednext;
 
+import android.Manifest;
+import android.app.Application;
 import android.app.Dialog;
+import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.nfc.Tag;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.PermissionChecker;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -42,9 +49,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.lang.ref.WeakReference;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+
+import static android.content.ContentValues.TAG;
 
 
 public class DocsFragment extends android.app.Fragment {
@@ -65,7 +75,11 @@ public class DocsFragment extends android.app.Fragment {
     TextView Tsyllabus;
     TextView Tactivity;
 
-    ProgressDialog dialog;
+    static private Context mContext;
+
+    static ProgressDialog dialog;
+
+    HomeActivity parentActivity;
 
     Button rClick;
     Button sClick;
@@ -106,26 +120,27 @@ public class DocsFragment extends android.app.Fragment {
         rClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                DownloadFileFromURL loader = new DownloadFileFromURL();
-                loader.execute(regulations, "regulations");
+                isStoragePermissionGranted();
+                DownloadFileFromURL loader = new DownloadFileFromURL(getActivity());
+                loader.execute(regulations, "regulations.pdf");
             }
         });
 
         sClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                DownloadFileFromURL loader = new DownloadFileFromURL();
-                loader.execute(syllabus, "syllabus");
+                isStoragePermissionGranted();
+                DownloadFileFromURL loader = new DownloadFileFromURL(getActivity());
+                loader.execute(syllabus, "syllabus.pdf");
             }
         });
 
         aClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DownloadFileFromURL loader = new DownloadFileFromURL();
-                loader.execute(activity_points, "activity_points");
+                isStoragePermissionGranted();
+                DownloadFileFromURL loader = new DownloadFileFromURL(getActivity());
+                loader.execute(activity_points, "activity_points.pdf");
             }
         });
 
@@ -145,7 +160,7 @@ public class DocsFragment extends android.app.Fragment {
     private void setupViews() {
         Typeface raleway_bold = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Raleway-Bold.ttf");
         Typeface raleway_regular = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Raleway-Regular.ttf");
-        HomeActivity parentActivity = (HomeActivity) getActivity();
+        parentActivity = (HomeActivity) getActivity();
         button = parentActivity.findViewById(R.id.menu_button);
         heading = parentActivity.findViewById(R.id.heading);
 
@@ -167,64 +182,37 @@ public class DocsFragment extends android.app.Fragment {
     }
 
 
-    class DownloadFileFromURL extends AsyncTask<String, String, String> {
+    private static class DownloadFileFromURL extends AsyncTask<String, String, String> {
+
+        public DownloadFileFromURL (Context context){
+            mContext = context;
+        }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
 
-
-            dialog = ProgressDialog.show(getActivity(), "",
+            dialog = ProgressDialog.show(mContext, "",
                     "Downloading. Please wait...", true);
+            dialog.setCancelable(false);
         }
 
         @Override
         protected String doInBackground(String... strings) {
 
-            int count;
+            Uri uri = Uri.parse(strings[0]);
+            String fileName = strings[1];
 
-            try {
-                URL url = new URL(strings[0]);
-                URLConnection connection = url.openConnection();
-                connection.connect();
-
-                int lengthOfFile = connection.getContentLength();
-
-                InputStream input = new BufferedInputStream(url.openStream(), 8192);
-
-                OutputStream output = new FileOutputStream(Environment
-                        .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString()
-                        + "/" + strings[1] + ".pdf");
-
-                byte data[] = new byte[1024];
-
-                long total = 0;
-
-                while ((count = input.read(data)) != -1) {
-                    total += count;
-                    // publishing the progress....
-                    // After this onProgressUpdate will be called
-                    publishProgress("" + (int) ((total * 100) / lengthOfFile));
-
-                    // writing data to file
-                    output.write(data, 0, count);
-                }
-
-                // flushing output
-                output.flush();
-
-                // closing streams
-                output.close();
-                input.close();
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (Exception e) {
-                Log.e("Error : ", e.getMessage());
+            DownloadManager.Request r = new DownloadManager.Request(uri);
+            r.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName);
+            r.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+            DownloadManager dm = (DownloadManager) mContext.getSystemService(Context.DOWNLOAD_SERVICE);
+            if (dm != null) {
+                dm.enqueue(r);
+            } else {
+                return "failed";
             }
-            return null;
+            return "success";
         }
 
         @Override
@@ -237,8 +225,31 @@ public class DocsFragment extends android.app.Fragment {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             dialog.dismiss();
-            Toast.makeText(getActivity(), "Download complete. Check Downloads folder.", Toast.LENGTH_SHORT).show();
+            if(s.equals("failed")) {
+                Toast.makeText(mContext, "Download Failed", Toast.LENGTH_SHORT).show();
+            } else {
+
+                Toast.makeText(mContext, "Download complete. Check Downloads folder.", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
+    public  boolean isStoragePermissionGranted() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (PermissionChecker.checkSelfPermission(getActivity(),android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED) {
+                Log.v(TAG,"Permission is granted");
+                return true;
+            } else {
+
+                Log.v(TAG,"Permission is revoked");
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                return false;
+            }
+        }
+        else { //permission is automatically granted on sdk<23 upon installation
+            Log.v(TAG,"Permission is granted");
+            return true;
+        }
+    }
 }

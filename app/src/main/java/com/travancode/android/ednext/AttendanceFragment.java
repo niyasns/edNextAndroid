@@ -241,7 +241,7 @@ public class AttendanceFragment extends android.app.Fragment {
                 Toast.makeText(getActivity(), "Data Not Available", Toast.LENGTH_SHORT).show();
                 circleProgressView.setValue(0.0f);
                 user_name.setText("No data");
-                user_branch.setText("");
+                user_branch.setText("Will be updated");
                 user_number.setText("");
                 user_total.setText("");
                 user_attended.setText("");
@@ -266,14 +266,15 @@ public class AttendanceFragment extends android.app.Fragment {
                     User.setTotal_Percentage(data.getString("totalPercentage"));
 
                     JSONArray d = data.getJSONArray("subjects");
-                    d.getJSONObject(0);
-                    
-                    String[] subjects = new String[d.length()];
-                    String[] total = new String[d.length()];
-                    String[] attended = new String[d.length()];
-                    String[] percentage = new String[d.length()];
 
                     if(d.length() != 0) {
+
+                        d.getJSONObject(0);
+
+                        String[] subjects = new String[d.length()];
+                        String[] total = new String[d.length()];
+                        String[] attended = new String[d.length()];
+                        String[] percentage = new String[d.length()];
 
                         isSubAvail = true;
 
